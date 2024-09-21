@@ -1,0 +1,272 @@
+body {
+    background-color: rgb(255, 255, 255);
+    font-family: '微軟正黑體', 'Arial', sans-serif;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    overflow-y:scroll;
+}
+
+.header a {
+    color: rgb(0, 0, 0);
+}
+
+.header a:hover {
+    color: rgb(0, 0, 0);
+}
+
+.header a.nav-link.active {
+    color: rgb(0, 0, 0);
+    background-color: #00000081;
+}
+
+header {
+    text-align: center;
+    display: grid;
+    /* 置中 */
+    align-items: center;
+    background-color: #ffffff;
+    height: 80px;
+    /* 增加高度 */
+}
+
+ul {
+    text-align: center;
+    list-style-type: none;
+    /* 移除點點 */
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+header .nav {
+    display: flex;
+    justify-self: center;
+}
+
+
+/* 針對小屏幕的媒體查詢 */
+@media (max-width: 768px) {
+
+    /* 表格樣式 */
+    table {
+        width: 100%;
+        /* 讓每一列填滿寬度 */
+        box-sizing: border-box;
+        /* 包含邊框和內邊距在內的寬度計算 */
+        white-space: nowrap;
+        /* 防止文字換行 */
+    }
+
+    th {
+
+        width: 100%;
+        /* 讓每一列填滿寬度 */
+        box-sizing: border-box;
+        /* 包含邊框和內邊距在內的寬度計算 */
+    }
+
+    header {
+        width: 100%;
+        /* 讓每一列填滿寬度 */
+        box-sizing: border-box;
+        /* 包含邊框和內邊距在內的寬度計算 */
+        white-space: nowrap;
+        /* 防止文字換行 */
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+/* 修改 input 和 button 的樣式 */
+.order {
+    padding: 5px;
+    font-size: 14px;
+    width: 60px;
+    /* 調整 input 的寬度 */
+    margin: 2px;
+}
+
+button {
+    background-color: transparent;
+    border: 2px solid #555555;
+    color: black;
+    padding: 8px 16px;
+    /* 調整 padding */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    /* 調整字體大小 */
+    margin: 2px 1px;
+    /* 調整 margin */
+
+    /* 設置固定高度 */
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.ctrl {
+    width: 40px;
+    height: 40px;
+    padding: 0px 0px;
+}
+
+button:hover {
+    background-color: #555555;
+    color: white;
+}
+
+/* 表格樣式 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+/* 表格行的樣式 */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+/* 表格標題的樣式 */
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #00000081;
+    color: white;
+}
+
+/* 標籤樣式 */
+label {
+    /* 字體大小 */
+    color: #333;
+    /* 字體顏色 */
+    margin-right: 10px;
+    /* 與選擇框之間的間距 */
+}
+
+/* 選擇框樣式 */
+select {
+    height: 40px;
+    width: 120px;
+    font-size: 16px;
+    /* 字體大小 */
+    padding: 6px 12px;
+    /* 內邊距 */
+    border: 2px solid #555555;
+    /* 邊框顏色和寬度 */
+    border-radius: 4px;
+    /* 邊框圓角 */
+    background-color: transparent;
+    /* 背景顏色 */
+    color: #000000;
+    /* 字體顏色 */
+    cursor: pointer;
+    /* 滑鼠指針樣式 */
+    transition: all 0.3s;
+    /* 過渡效果 */
+    font-family: '微軟正黑體', 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+/* 選擇框懸停樣式 */
+select:hover {
+    border-color: #777777;
+    /* 懸停時邊框顏色 */
+}
+
+/* 選擇框選中樣式 */
+select:focus {
+    outline: none;
+    /* 移除默認的聚焦樣式 */
+    border-color: #555555;
+    /* 聚焦時邊框顏色 */
+    box-shadow: 0 0 5px rgba(85, 85, 85, 0.5);
+    /* 聚焦時的陰影效果 */
+}
+
+
+a {
+    text-decoration: none;
+    /* 去除下劃線 */
+    color: #1e1d1d;
+    /* 設置文字顏色 */
+    /* 設置內邊距 */
+    margin: 0 1px;
+    /* 設置外邊距 */
+    border-radius: 4px;
+    /* 設置圓角 */
+    transition: all 0.3s ease;
+    /* 設置過渡效果 */
+    font-family: '微軟正黑體', 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #0056b3;
+    /* 設置懸停時的文字顏色 */
+    border-color: #0056b3;
+    /* 設置懸停時的邊框顏色 */
+}
+
+a:active {
+    color: #004085;
+    /* 設置點擊時的文字顏色 */
+}
+
+.nav-link {
+    text-decoration: none;
+    /* 去除下劃線 */
+    color: #1e1d1d;
+    /* 設置文字顏色 */
+    padding: 10px 10px;
+    /* 設置內邊距 */
+    margin: 0 1px;
+    /* 設置外邊距 */
+    border-radius: 4px;
+    /* 設置圓角 */
+    transition: all 0.3s ease;
+    /* 設置過渡效果 */
+    font-family: '微軟正黑體', 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+option {
+    font-family: '微軟正黑體', 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+.bulletin-board {
+    width: 80%;
+    margin: 50px auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.bulletin-board h2 {
+    margin-bottom: 20px;
+}
+.bulletin-board p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+

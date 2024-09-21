@@ -1,0 +1,71 @@
+{%extends "bases/Base.html"%}
+{% load static %}
+
+{%block head%}
+<script src="{%static 'js/add.js'%}" defer></script>
+<title>新增訂單</title>
+{%endblock%}
+
+{%block body%}
+<div class="header">
+    <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/customer/" class="nav-link" aria-current="page">首頁</a></li>
+            <li class="nav-item"><a href="/customer/order/" class="nav-link active">新增訂單</a></li>
+            <li class="nav-item"><a href="/customer/check/" class="nav-link">查看訂單</a></li>
+            <li class="nav-item"><a href="/logout/" class="nav-link">登出</a></li>
+            <li class="nav-item"><a href="/logout/" class="nav-link">{{ user.username }}</a></li>
+        </ul>
+    </header>
+</div>
+<label for="category-select">選擇平台:</label>
+        <select id="platform-select">
+            <option value="all">all</option>
+            {%for platform in platforms%}
+            <option value={{platform}}>{{platform}}</option>
+            {%endfor%}
+        </select>
+<form method="post" action="">
+    {% csrf_token %}
+    {{formset.management_form}}
+    <table>
+        <tr>         
+            <th>平台</th>
+            <th>品名</th>
+            <th>上市日期</th>
+            <th>建議售價</th>
+            <th>備註</th>
+            <th>輸入備註</th>
+            <th>數量</th>
+            <th>操作</th>
+        </tr>
+        {%for form,product in combined%} 
+            <tr class="trs {{product.platform}}">
+                <td>{{product.platform}}</td>
+                <td>{{product.product_name}}</td>
+                <td>{{product.release_date|date:"Y-m-d"|default:"無"}}</td>
+                <td>{{product.suggested_price|default:"無"}}</td>
+                <td>{{product.notes|default:"無"}}</td>
+                <td>{{form.input_notes}}</td>
+                <td>{{form.quantity}}</td>
+                
+                <td>
+                    <button type="button" class="ctrl" onclick="decrement(this)">-</button>
+                    <button type="button" class="ctrl" onclick="increment(this)">+</button>
+                </td>
+            </tr>
+        {%empty%}
+        <tr>
+            <td>無商品</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {%endfor%}
+    </table>
+    <button type="submit">上傳</button>
+</form>
+{%endblock%}

@@ -1,0 +1,68 @@
+{%extends "bases/Base.html"%}
+{% load static %}
+
+{%block head%}
+<script src="{%static 'js/add.js'%}" defer></script>
+<title>商品管理</title>
+{%endblock%}
+
+{%block body%}
+<div class="header">
+    <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/op/" class="nav-link" aria-current="page">首頁</a></li>
+            <li class="nav-item"><a href="/op/check/" class="nav-link">查看訂單</a></li>
+            <li class="nav-item"><a href="/op/userManage/?page=1" class="nav-link">用戶管理</a></li>
+            <li class="nav-item"><a href="/op/productManage/" class="nav-link active">商品管理</a></li>
+            <li class="nav-item"><a href="/logout/" class="nav-link">登出</a></li>
+            <li class="nav-item"><a href="/logout/" class="nav-link">{{ user.username }}</a></li>
+        </ul>
+    </header>
+</div>
+
+<label for="category-select">選擇平台:</label>
+<select id="platform-select">
+    <option value="all">all</option>
+    {%for platform in platforms%}
+    <option value={{platform}}>{{platform}}</option>
+    {%endfor%}
+</select>
+
+
+<table>
+    <tr>
+        <th>平台</th>
+        <th>品名</th>
+        <th>上市日期</th>
+        <th>建議售價</th>
+        <th>備註</th>
+        <th>操作</th>
+    </tr>
+    {%for product in products%}
+    <tr class="trs {{product.platform}}">
+        <td>{{product.platform}}</td>
+        <td>{{product.product_name}}</td>
+        <td>{{product.release_date|date:"Y-m-d"|default:"無"}}</td>
+        <td>{{product.suggested_price|default:"無"}}</td>
+        <td>{{product.notes|default:"無"}}</td>
+        <td>
+            <a href="edit/?id={{product.product_id}}">編輯</a>
+            <a href="delete/?id={{product.product_id}}">刪除</a>
+        </td>
+    </tr>
+    {%empty%}
+    <tr>
+        <td>無商品</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    {%endfor%}
+</table>
+<a href="create/">新增商品</a>
+
+
+{%endblock%}

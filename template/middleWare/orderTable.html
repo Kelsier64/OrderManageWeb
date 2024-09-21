@@ -1,0 +1,31 @@
+<label for="category-select">選擇平台:</label>
+        <select id="platform-select">
+            <option value="all">all</option>
+            {%for platform in platforms%}
+            <option value={{platform}}>{{platform}}</option>
+            {%endfor%}
+        </select>
+
+
+<table>
+    <tr>
+        <th>下單用戶</th>
+        <th>下單時間</th>
+        <th>平台</th>
+        <th>品名</th>
+        <th>備註</th>
+        <th>數量</th>
+    </tr>
+    {%for order in orders%} 
+        <tr class="trs {{order.product.platform}}">
+            <td>{{order.user.name}}</td>
+            <td>{{order.create_at|date:"Y-m-d H:i"}}</td>
+            <td>{{order.product.platform}}</td>
+            <td>{{order.product.product_name}}</td>
+            <td>{{order.notes}}</td>
+            <td>{{order.quantity}}</td>
+        </tr>
+    {%empty%}
+    <td>無商品</td>
+    {%endfor%}
+</table>

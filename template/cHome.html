@@ -1,0 +1,130 @@
+{%extends "bases/Base.html"%}
+{% load static %}
+
+{%block head%}
+<title>首頁</title>
+<style>
+
+    .chat-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #6b6a6a78;
+        color: white;
+        border: none;
+
+
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .chat-window {
+        display: none;
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 400px;
+        height: 450px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+    }
+    .chat-messages {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 10px;
+    }
+    .chat-input {
+        display: flex;
+        padding: 10px;
+    }
+    .chat-input input {
+        flex-grow: 1;
+        margin-right: 10px;
+    }
+    .loading {
+        display: none;
+        text-align: center;
+        padding: 10px;
+    }
+</style>
+{%endblock%}
+
+{%block body%}
+<div class="header">
+    <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/customer/" class="nav-link active" aria-current="page">首頁</a></li>
+            <li class="nav-item"><a href="/customer/order/" class="nav-link">新增訂單</a></li>
+            <li class="nav-item"><a href="/customer/check/" class="nav-link">查看訂單</a></li>
+            <li class="nav-item"><a href="/logout/" class="nav-link">登出</a></li>
+            <li class="nav-item"><a href="/logout/" class="nav-link">{{ user.username }}</a></li>
+        </ul>
+    </header>
+</div>
+<div class="bulletin-board">
+    <h2>公告欄</h2>
+    {%for note in notes%}
+    <p>{{note.notes}}</p>
+    {%endfor%}
+</div>
+<button class="chat-button" onclick="toggleChat()">💬</button>
+    
+<div class="chat-window" id="chatWindow">
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="loading" id="loading">Loading...</div>
+    <div class="chat-input">
+
+        {% csrf_token %}
+        <script>
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        </script>
+        <input type="text" id="userInput" placeholder="諮詢我們的ai助理...">
+        <button onclick="sendMessage()">Send</button>
+
+
+
+    </div>
+</div>
+
+<script>
+    function toggleChat() {
+        const chatWindow = document.getElementById('chatWindow');
+        chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
+    }
+
+    function sendMessage() {
+        const userInput = document.getElementById('userInput');
+        const chatMessages = document.getElementById('chatMessages');
+        const loading = document.getElementById('loading');
+        // const csrftoken = Cookies.get('csrftoken');
+        if (userInput.value.trim() === '') return;
+
+        chatMessages.innerHTML += `<p><strong>You:</strong> ${userInput.value}</p>`;
+        loading.style.display = 'block';
+
+        fetch('/customer/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ prompt: userInput.value }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                loading.style.display = 'none';
+                chatMessages.innerHTML += `<p><strong>助理:</strong> ${data.response}</p>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            })
+            .catch(error => {
+                loading.style.display = 'none';
+                chatMessages.innerHTML += `<p><strong>Error:</strong> ${error}</p>`;
+            });
+
+        userInput.value = '';
+    }
+</script>
+{%endblock%}
+

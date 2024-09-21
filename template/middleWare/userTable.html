@@ -1,0 +1,23 @@
+<div>
+    <table>
+        <tr>
+            <th>用戶名</th>
+            <th>用戶帳號</th>
+            <th>class</th>
+            <th>操作</th>
+        </tr>
+        {%for user in users%} 
+            <tr class="trs {{item.category}}">
+                <td>{{user.name}}</td>
+                <td>{{user.user.username}}</td>
+
+                <td>{{user.user_class}}</td>
+                <td>
+                    <a href="edit/?userId={{user.user.id}}">編輯</a>
+                    <a href="delete/?userId={{user.user.id}}">刪除</a>
+                </td>
+            </tr>
+        {%empty%}
+        {%endfor%}
+    </table>
+</div>

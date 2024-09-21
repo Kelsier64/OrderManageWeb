@@ -1,0 +1,18 @@
+{%extends "bases/Base.html"%}
+{% load static %}
+
+{%block head%}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>商品編輯</title>
+{%endblock%}
+
+{%block body%}
+<div class="container mt-5">
+    <h2 class="mb-4">商品編輯</h2>
+    <form method="post" action="" class="form-group">
+        {%csrf_token%}
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" value="保存">
+    </form>
+</div>
+{%endblock%}

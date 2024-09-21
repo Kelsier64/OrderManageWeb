@@ -1,0 +1,27 @@
+{%extends "bases/Base.html"%}
+{% load static %}
+
+{%block head%}
+<title>首頁</title>
+{%endblock%}
+
+{%block body%}
+<div class="header">
+    <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/op/" class="nav-link active" aria-current="page">首頁</a></li>
+            <li class="nav-item"><a href="/op/check/" class="nav-link">查看訂單</a></li>
+            <li class="nav-item"><a href="/op/userManage/?page=1" class="nav-link">用戶管理</a></li>
+            <li class="nav-item"><a href="/op/productManage/" class="nav-link">商品管理</a></li>
+            <li class="nav-item"><a href="/logout/" class="nav-link">登出</a></li>
+            <li class="nav-item"><a href="/logout/" class="nav-link">{{ user.username }}</a></li>
+        </ul>
+    </header>
+</div>
+<div class="bulletin-board">
+    <h2>公告欄</h2>
+    {%for note in notes%}
+    <p>{{note.notes}}</p>
+    {%endfor%}
+</div>
+{%endblock%}

@@ -1,0 +1,59 @@
+{%extends "bases/Base.html"%}
+{% load static %}
+
+{%block head%}
+<script src="{%static 'js/add.js'%}" defer></script>
+<title>用戶管理</title>
+{%endblock%}
+
+{%block body%}
+<div class="header">
+    <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/op/" class="nav-link" aria-current="page">首頁</a></li>
+            <li class="nav-item"><a href="/op/check/" class="nav-link">查看訂單</a></li>
+            <li class="nav-item"><a href="/op/userManage/?page=1" class="nav-link active">用戶管理</a></li>
+            <li class="nav-item"><a href="/op/productManage/" class="nav-link">商品管理</a></li>
+            <li class="nav-item"><a href="/logout/" class="nav-link">登出</a></li>
+            <li class="nav-item"><a href="/logout/" class="nav-link">{{ user.username }}</a></li>
+        </ul>
+    </header>
+</div>
+<div>
+    <table>
+        <tr>
+            <th>用戶名</th>
+            <th>用戶帳號</th>
+            <th>用戶類別</th>
+            <th>操作</th>
+        </tr>
+        {%for user in users%} 
+            <tr class="trs {{item.category}}">
+                <td>{{user.name}}</td>
+                <td>{{user.user.username}}</td>
+
+                <td>{{user.user_class}}</td>
+                <td>
+                    <a href="edit/?userId={{user.user.id}}">編輯</a>
+                    <a href="delete/?userId={{user.user.id}}">刪除</a>
+                </td>
+            </tr>
+        {%empty%}
+        {%endfor%}
+    </table>
+</div>
+<a href="regist/">新增用戶</a>
+
+{% if page.pre != page.now %}
+<a href="/op/userManage/?page={{page.pre}}">上一頁</a>
+{%endif%}
+
+<a>第{{page.now}}頁</a>
+
+{% if page.next != page.now %}
+<a href="/op/userManage/?page={{page.next}}">下一頁</a>
+{%endif%}
+
+<a>共{{page.max}}頁</a>
+
+{%endblock%}

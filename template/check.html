@@ -1,0 +1,88 @@
+{%extends "bases/Base.html"%}
+{% load static %}
+
+{%block head%}
+<script src="{%static 'js/table.js'%}" defer></script>
+<title>查看訂單</title>
+{%endblock%}
+
+{%block body%}
+
+<div class="header">
+    <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/customer/" class="nav-link" aria-current="page">首頁</a></li>
+            <li class="nav-item"><a href="/customer/order/" class="nav-link">新增訂單</a></li>
+            <li class="nav-item"><a href="/customer/check/" class="nav-link active">查看訂單</a></li>
+            <li class="nav-item"><a href="/logout/" class="nav-link">登出</a></li>
+            <li class="nav-item"><a href="/logout/" class="nav-link">{{ user.username }}</a></li>
+        </ul>
+    </header>
+</div>
+
+<div>
+    <label for="table-select">選擇表格:</label>
+    <select id="table-select">
+        <option value="detail">詳細表格</option>
+        <option value="total">統計表格</option>
+    </select>
+
+    <label for="sort-select" class="detailSelect">排序方式:</label>
+    <select id="sort-select" class="detailSelect">
+        <option value="desc">時間降序</option>
+        <option value="asc">時間升序</option>
+        
+    </select>
+</div>
+
+<div>
+    <label for="platform-select">選擇平台:</label>
+    <select id="platform-select">
+        <option value="all">all</option>
+    </select>
+    <label for="store-select" class="detailSelect">選擇門市:</label>
+    <select id="store-select" class="detailSelect">
+        <option value="all">all</option>
+    </select>
+</div>
+
+
+<table id="detailTable" class="detail">
+    <tr>
+        <th>下單用戶</th>
+        <th>下單時間</th>
+        <th>平台</th>
+        <th>品名</th>
+        <th>上市日期</th>
+        <th>備註</th>
+        <th>數量</th>
+    </tr>
+    {%for order in orders%}
+    <tr class="trs {{order.product.platform}} {{order.user.name}}">
+        <td>{{order.user.name}}</td>
+        <td>{{order.create_at|date:"Y-m-d H:i"}}</td>
+        <td>{{order.product.platform}}</td>
+        <td>{{order.product.product_name}}</td>
+        <td>{{order.product.release_date|date:"Y-m-d"|default:"無"}}</td>
+        <td>{{order.notes|default:"無"}}</td>
+        <td>{{order.quantity}}</td>
+    </tr>
+    {%empty%}
+    <tr>
+        <td>無訂單</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    {%endfor%}
+</table>
+
+
+<table id="summaryTable" class="hidden">
+    <thead id="summaryHead"></thead>
+    <tbody id="summaryBody"></tbody>
+</table>
+{%endblock%}
